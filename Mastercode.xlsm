@@ -1,0 +1,31 @@
+Sub MergeFiles()
+
+    Dim path As String, file As String
+    Dim wb As Workbook, ws As Worksheet
+    Dim dest As Worksheet
+    Dim lastRow As Long
+
+    path = "C:\Users\v-adeokar\Downloads\"   'CHANGE FOLDER PATH
+
+    Set dest = ThisWorkbook.Sheets("Consolidated")
+
+    file = Dir(path & "*.xlsx")
+
+    Do While file <> ""
+
+        Set wb = Workbooks.Open(path & file)
+        Set ws = wb.Sheets("T&M")
+
+        lastRow = ws.Cells(ws.Rows.Count, 1).End(xlUp).Row
+
+        ws.Range("A7:H" & lastRow).Copy
+        dest.Cells(dest.Rows.Count, 1).End(xlUp).Offset(1, 0).PasteSpecial xlPasteValues
+
+        wb.Close False
+        file = Dir
+
+    Loop
+
+    MsgBox "All trackers merged!"
+
+End Sub

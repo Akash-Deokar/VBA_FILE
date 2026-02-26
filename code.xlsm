@@ -1,0 +1,63 @@
+Function GetRow() As Long
+    GetRow = ActiveCell.Row
+End Function
+
+
+Sub StartTime()
+
+    Dim r As Long
+    r = GetRow()
+
+    If Cells(r, 5).Value <> "" Then
+        MsgBox "Start time already recorded."
+        Exit Sub
+    End If
+
+    Cells(r, 5).Value = Now
+
+End Sub
+
+
+Sub EndTime()
+
+    Dim r As Long
+    r = GetRow()
+
+    If Cells(r, 5).Value = "" Then
+        MsgBox "Task has not yet started"
+        Exit Sub
+    End If
+
+    Cells(r, 6).Value = Now
+
+End Sub
+
+
+Sub PauseTime()
+
+    Dim r As Long
+    r = GetRow()
+
+    If Cells(r, 5).Value = "" Then
+        MsgBox "Cannot pause. Task not started."
+        Exit Sub
+    End If
+
+    Cells(r, 7).Value = Now
+
+End Sub
+
+
+Sub ResumeTime()
+
+    Dim r As Long
+    r = GetRow()
+
+    If Cells(r, 7).Value = "" Then
+        MsgBox "Task is not paused"
+        Exit Sub
+    End If
+
+    Cells(r, 8).Value = Now
+
+End Sub
